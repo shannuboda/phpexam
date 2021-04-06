@@ -1,15 +1,79 @@
-#Working Link demo line to line
-https://projectsflix.com/php/make-online-jee-mainsbitsat-exam-using-phpjavascriptcssmysql/
-# onlinequiz
-This online quiz is same like the online jee mains.This quiz consists of 10 questions and 10 buttons along with MarkforReview button,SaveandNext and Submit button and the button colour changes  when clicked on the respective buttons.THIS QUIZ IS MADE BY USING CSS,JAVASCRIPT,MYSQL,PHP,HTML.
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<link rel="stylesheet" type="text/css" href="style.css"></link>
+	</head>
+	<script>
+	//function for matching of entered password.
+	var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    document.getElementById('message').style.color = '#00cc00';
+    document.getElementById('message').innerHTML = 'MATCHED';
+  } else {
+    document.getElementById('message').style.color = '#ff0000';
+    document.getElementById('message').innerHTML = 'NOT MATCHED';
+  }
+}
 
-HELLO FOLKS,
-first download this zip
-inorder to run this u need to install php,xampp.
-so goto C:\xampp\htdocs
-and in place of index.php jst copy this index.php code and open xampp controlpanel and start localhost,start MYSQL.
-and copy all files from here and paste in this folder (C:\xampp\htdocs).
-goto chrome and open phpmyadmin and import the register (2).sql file so that u can create register database and registerpage table.
-then goto chrome and type localhost and u will find the project opened there.
-You can develop this project even better by adding more subjects and storing the questions & answers in the database by keeping attractive GUI.
-happy coding!!!
+
+	</script>
+	
+	
+	<body style="background-image:url('white.png')">
+	<div class="container">
+		<img src="men.png" />
+			<form method="post"  >
+				<div class="font-input">
+					<input type="text" name="username" placeholder="Enter UserName">
+				</div>
+				<div class="font-input">
+					<input type="number_format" name="roll" placeholder="Enter Rollnumber">
+				</div>
+				<div class="font-input">
+					<input type="number_format" name="phone" placeholder="Enter Phonenumber">
+				</div>
+				<div class="font-input">
+				
+				<input name="password" id="password" type="password" placeholder="Enter password" />
+				</div>
+				<div class="font-input">
+				
+				<input type="password" name="confirm_password" id="confirm_password" placeholder="Re-Enter password" onkeyup='check();' /> <br>
+				<span id='message'></span>
+				
+				</div>
+				
+				<input type="submit" name="submit" value="Register" class="btn-login" /><br><br>
+				<!--<a style="text-decoration:none" id="submit" href="USE.php" class="btn-login">Register</a>
+-->
+				
+			
+			</form>
+		</div>
+	</body>
+</html>
+
+
+<?php
+
+$con = mysqli_connect("localhost","root","","register(2)");
+if(isset($_POST['submit'])){
+	$user = $_POST['username'];
+	$rol = $_POST['roll'];
+	$phn = $_POST['phone'];
+	$pasd = $_POST['password'];
+	if (mysqli_connect_errno())
+	{
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+	
+	mysqli_query($con,"insert into registerpage (user_name,roll_no,phone_no,paswd) values ('$user','$rol','$phn','$pasd')") ;
+	header("Location:USE.php");
+	//if(mysqli_query($query)){
+	
+	//}
+	mysqli_close($con);
+}
+?>
